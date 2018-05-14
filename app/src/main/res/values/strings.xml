@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">CodeWars</string>
+    <string name="search_username_hint">Enter username</string>
+    <string name="search">Search</string>
+    <string name="search_screen_empty_text">Uups, nothing to see here!\nStart by searching for a user.</string>
 </resources>
