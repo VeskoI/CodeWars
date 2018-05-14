@@ -4,4 +4,6 @@ ext {
     arch_components_version = '1.1.0'
     retrofit_version = '2.4.0'
     mock_server_version = '3.8.1'
+    rx_java_version = '2.1.12'
+    rx_android_version = '2.0.2'
 }
