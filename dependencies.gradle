@@ -6,4 +6,5 @@ ext {
     mock_server_version = '3.8.1'
     rx_java_version = '2.1.12'
     rx_android_version = '2.0.2'
+    dagger_version = '2.14.1'
 }
