@@ -3,7 +3,7 @@ package com.veskoiliev
 import android.support.annotation.CallSuper
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.veskoiliev.codewars.SearchUserActivity
+import com.veskoiliev.codewars.ui.search.SearchUserActivity
 import com.veskoiliev.rule.ClearAppDataRule
 import org.junit.Before
 import org.junit.Rule

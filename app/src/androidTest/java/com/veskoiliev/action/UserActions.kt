@@ -1,7 +1,7 @@
 package com.veskoiliev.action
 
 import android.support.test.rule.ActivityTestRule
-import com.veskoiliev.codewars.SearchUserActivity
+import com.veskoiliev.codewars.ui.search.SearchUserActivity
 
 class UserActions(private val activityRule: ActivityTestRule<SearchUserActivity>) {
 
