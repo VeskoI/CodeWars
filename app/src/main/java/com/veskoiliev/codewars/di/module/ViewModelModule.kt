@@ -1,0 +1,22 @@
+package com.veskoiliev.codewars.di.module
+
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import com.veskoiliev.codewars.di.util.ViewModelFactory
+import com.veskoiliev.codewars.di.util.ViewModelKey
+import com.veskoiliev.codewars.ui.search.SearchViewModel
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
+
+@Module
+abstract class ViewModelModule {
+
+    @Binds
+    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    internal abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+}
