@@ -1,0 +1,5 @@
+ext {
+    constraint_layout_version = '1.1.0'
+    app_compat_version = '27.1.1'
+    arch_components_version = '1.1.0'
+}
