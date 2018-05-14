@@ -1,9 +1,5 @@
 package com.veskoiliev.assertion
 
-import android.support.test.espresso.matcher.ViewMatchers.withText
-import com.veskoiliev.assertion.ViewAssertions.assertDisplayingView
-import com.veskoiliev.codewars.R
-
 /**
  * Wrapper for various screen assertions.
  *
@@ -12,7 +8,5 @@ import com.veskoiliev.codewars.R
  */
 class ScreenAssertion {
 
-    fun searchUserScreen() {
-        assertDisplayingView(withText(R.string.app_name))
-    }
+    val searchUserScreen: SearchScreenAssertions by lazy { SearchScreenAssertions() }
 }

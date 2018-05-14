@@ -10,6 +10,6 @@ class AppStartTest : BaseInstrumentationTestCase() {
     fun willDisplaySearchUserScreenWhenStartingTheApp() {
         `when`.user.launchesTheApp()
 
-        then.user.sees.searchUserScreen()
+        then.user.sees.searchUserScreen
     }
 }

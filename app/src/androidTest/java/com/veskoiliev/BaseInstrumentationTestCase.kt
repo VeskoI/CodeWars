@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.veskoiliev.codewars.ui.search.SearchUserActivity
 import com.veskoiliev.rule.ClearAppDataRule
+import com.veskoiliev.rule.mockwebserver.MockWebServerRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.RuleChain
@@ -20,11 +21,13 @@ import org.junit.runner.RunWith
 abstract class BaseInstrumentationTestCase {
 
     private val activityRule = ActivityTestRule(SearchUserActivity::class.java, true, false)
+    private val serverRule = MockWebServerRule()
 
     @Rule
     @JvmField
     val rules: TestRule = RuleChain
             .outerRule(ClearAppDataRule())
+            .around(serverRule)
             .around(activityRule)
 
     lateinit var given: Given
@@ -34,7 +37,7 @@ abstract class BaseInstrumentationTestCase {
     @Before
     @CallSuper
     fun setUp() {
-        given = Given()
+        given = Given(serverRule)
         `when` = When(activityRule)
         then = Then()
     }
