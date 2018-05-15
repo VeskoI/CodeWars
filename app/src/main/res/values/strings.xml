@@ -2,6 +2,8 @@
     <string name="app_name">CodeWars</string>
     <string name="search_username_hint">Enter username</string>
     <string name="search">Search</string>
-    <string name="search_screen_empty_text">Uups, nothing to see here!\nStart by searching for a user.</string>
+    <string name="search_screen_empty_text">Your search history will appear here…\nStart by searching for a user.</string>
     <string name="error_user_not_found">User not found, please try another search!</string>
+    <string name="formatted_rank">Rank: %1$d</string>
+    <string name="formatted_best_language">Best Language: %1$s (%2$d)</string>
 </resources>

@@ -17,11 +17,16 @@ class SearchViewModel @Inject constructor(
         private val userRepository: UserRepository,
         @Named(NamedParams.RX_OBSERVE_THREAD) private val observeThread: Scheduler
 ) : ViewModel() {
+
     private val subscriptions = CompositeDisposable()
     private val searchedUser = MutableLiveData<Resource<User>>()
 
     fun searchedUser(): LiveData<Resource<User>> {
         return searchedUser
+    }
+
+    fun searchHistory(): LiveData<List<User>> {
+        return userRepository.getSearchHistory()
     }
 
     fun onSearchClicked(userName: String) {
@@ -37,10 +42,6 @@ class SearchViewModel @Inject constructor(
 
     private fun updateSearchedUser(resource: Resource<User>) {
         searchedUser.value = resource
-    }
-
-    fun fetchSearchHistory() {
-        // TODO not implemented
     }
 
     override fun onCleared() {

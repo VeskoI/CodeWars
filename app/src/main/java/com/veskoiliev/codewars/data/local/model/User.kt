@@ -1,7 +1,8 @@
 package com.veskoiliev.codewars.data.local.model
 
 data class User(
-        // TODO add all required fields here
-        val userName: String,
-        val name: String
+        val name: String,
+        val rank: Long,
+        val bestLanguage: String,
+        val bestLanguagePoints: Long
 )

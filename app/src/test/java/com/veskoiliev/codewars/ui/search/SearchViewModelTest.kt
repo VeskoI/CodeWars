@@ -1,6 +1,8 @@
 package com.veskoiliev.codewars.ui.search
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.Resource
@@ -30,9 +32,12 @@ class SearchViewModelTest {
 
     private lateinit var underTest: SearchViewModel
     private lateinit var searchedUserObserver: Observer<Resource<User>>
+    private lateinit var searchHistoryObserver: Observer<List<User>>
 
     private val userName = "someUsername"
-    private val user = User("userName", "name")
+    private val user = User(name = "name", rank = 123, bestLanguage = "Kotlin", bestLanguagePoints = 3432)
+    private val searchHistoryLiveData = MutableLiveData<List<User>>()
+    private val searchHistoryUsers = listOf(user, user, user)
 
     @Before
     fun setUp() {
@@ -60,7 +65,21 @@ class SearchViewModelTest {
         verify(searchedUserObserver).onChanged(Resource.SuccessResource(user))
     }
 
+    @Test
+    fun willDisplaySearchHistoryFromTheRepository() {
+        whenSearchHistoryIs(searchHistoryLiveData)
+        searchHistoryObserver = observeLiveData(underTest.searchHistory())
+
+        searchHistoryLiveData.value = searchHistoryUsers
+
+        verify(searchHistoryObserver).onChanged(searchHistoryUsers)
+    }
+
     private fun whenUserSearchResultsIn(result: Single<User>) {
         given(userRepository.getUser(userName)).willReturn(result)
+    }
+
+    private fun whenSearchHistoryIs(result: LiveData<List<User>>) {
+        given(userRepository.getSearchHistory()).willReturn(result)
     }
 }
