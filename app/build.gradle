@@ -27,6 +27,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$app_compat_version"
     implementation "com.android.support:recyclerview-v7:$app_compat_version"
+    implementation "com.android.support:design:$app_compat_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
 
     // Architecture components
@@ -56,7 +57,13 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation (
+            "junit:junit:$junit_version",
+            "org.hamcrest:hamcrest-all:$hamcrest_version",
+            "org.mockito:mockito-core:$mockito_version",
+            "android.arch.core:core-testing:$arch_components_version"
+    )
+
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
