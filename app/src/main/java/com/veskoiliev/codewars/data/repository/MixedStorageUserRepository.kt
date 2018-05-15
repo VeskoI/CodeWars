@@ -31,6 +31,9 @@ class MixedStorageUserRepository @Inject constructor(
                 .subscribeOn(workerThread)
     }
 
-    override fun getSearchHistory(sortOption: SortOption): LiveData<List<User>> =
-            userDao.getSearchHistoryOrderedBy(sortOption)
+    override fun getSearchHistory(sortOption: SortOption): LiveData<List<User>> = when(sortOption) {
+        SortOption.SEARCH_TIME -> userDao.getSearchHistoryBySearchTime()
+        SortOption.RANK -> userDao.getSearchHistoryByRank()
+        SortOption.LEADER_BOARD_POSITION -> userDao.getSearchHistoryByLeaderBoardPosition()
+    }
 }

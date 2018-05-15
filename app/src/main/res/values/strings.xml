@@ -8,4 +8,8 @@
     <string name="formatted_leader_board_position">Leaderboard position: %1$d</string>
     <string name="formatted_best_language">Best Language: %1$s (%2$d)</string>
     <string name="error_generic_message">Something went wrong, please try again.</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_date">Date</string>
+    <string name="sort_by_leaderboard_score">Leaderboard Pos</string>
+    <string name="sort_by_rank">Rank</string>
 </resources>

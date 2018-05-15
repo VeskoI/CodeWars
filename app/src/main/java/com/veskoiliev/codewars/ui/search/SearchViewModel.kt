@@ -1,6 +1,7 @@
 package com.veskoiliev.codewars.ui.search
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.veskoiliev.codewars.R
@@ -19,6 +20,14 @@ class SearchViewModel @Inject constructor(
         @Named(NamedParams.RX_OBSERVE_THREAD) private val observeThread: Scheduler
 ) : ViewModel() {
 
+    var searchHistorySortOption = SortOption.SEARCH_TIME
+        set(value) {
+            field = value
+            refreshSearchHistorySortOption(value)
+        }
+
+    private lateinit var searchHistoryLiveData: LiveData<List<User>>
+    private val mediatorSearchHistoryLiveData = MediatorLiveData<List<User>>()
     private val subscriptions = CompositeDisposable()
     private val searchedUser = MutableLiveData<Resource<User>>()
 
@@ -26,8 +35,10 @@ class SearchViewModel @Inject constructor(
         return searchedUser
     }
 
-    fun searchHistory(sortOption: SortOption): LiveData<List<User>> {
-        return userRepository.getSearchHistory(sortOption)
+    fun searchHistory(): LiveData<List<User>> {
+        searchHistoryLiveData = userRepository.getSearchHistory(searchHistorySortOption)
+        wrapSearchHistoryLiveDataWithMediator()
+        return mediatorSearchHistoryLiveData
     }
 
     fun onSearchClicked(userName: String) {
@@ -48,5 +59,17 @@ class SearchViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         subscriptions.clear()
+    }
+
+    private fun refreshSearchHistorySortOption(newSortOption: SortOption) {
+        mediatorSearchHistoryLiveData.removeSource(searchHistoryLiveData)
+        searchHistoryLiveData = userRepository.getSearchHistory(newSortOption)
+        wrapSearchHistoryLiveDataWithMediator()
+    }
+
+    private fun wrapSearchHistoryLiveDataWithMediator() {
+        mediatorSearchHistoryLiveData.addSource(searchHistoryLiveData, {
+            mediatorSearchHistoryLiveData.value = it
+        })
     }
 }

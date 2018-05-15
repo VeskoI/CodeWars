@@ -8,6 +8,8 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.local.model.SortOption
@@ -28,6 +30,7 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView {
 
     private val searchHistoryAdapter = SearchHistoryAdapter(emptyList(), this)
     private val searchHistoryLayoutManager = LinearLayoutManager(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView {
         initViewModel()
         initViews()
         searchViewModel.searchedUser().observe(this, Observer { binder.bindSearchedUserResource(it) })
-        searchViewModel.searchHistory(SortOption.SEARCH_TIME).observe(this, Observer { it?.let { binder.bindSearchHistory(it) } })
+        searchViewModel.searchHistory().observe(this, Observer { it?.let { binder.bindSearchHistory(it) } })
     }
 
     private fun initViewModel() {
@@ -79,5 +82,32 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView {
         search_history_list.visibility = View.VISIBLE
         searchHistoryAdapter.items = usersList
         searchHistoryAdapter.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_search_screen, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_item_sort_by_date -> {
+                observeSearchHistoryOrderedBy(SortOption.SEARCH_TIME)
+                return true
+            }
+            R.id.menu_item_sort_by_rank -> {
+                observeSearchHistoryOrderedBy(SortOption.RANK)
+                return true
+            }
+            R.id.menu_item_sort_by_leaderboard_score -> {
+                observeSearchHistoryOrderedBy(SortOption.LEADER_BOARD_POSITION)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun observeSearchHistoryOrderedBy(sortOption: SortOption) {
+        searchViewModel.searchHistorySortOption = sortOption
     }
 }

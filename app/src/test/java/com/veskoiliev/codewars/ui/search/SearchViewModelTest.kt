@@ -38,7 +38,6 @@ class SearchViewModelTest {
 
     private val userName = "someUsername"
     private val searchHistoryLiveData = MutableLiveData<List<User>>()
-    private val sortOption = SortOption.RANK
 
     @Before
     fun setUp() {
@@ -69,7 +68,7 @@ class SearchViewModelTest {
     @Test
     fun willDisplaySearchHistoryFromTheRepository() {
         whenSearchHistoryIs(searchHistoryLiveData)
-        searchHistoryObserver = observeLiveData(underTest.searchHistory(sortOption))
+        searchHistoryObserver = observeLiveData(underTest.searchHistory())
 
         searchHistoryLiveData.value = TestUser.usersList
 
@@ -81,6 +80,6 @@ class SearchViewModelTest {
     }
 
     private fun whenSearchHistoryIs(result: LiveData<List<User>>) {
-        given(userRepository.getSearchHistory(sortOption)).willReturn(result)
+        given(userRepository.getSearchHistory(SortOption.SEARCH_TIME)).willReturn(result)
     }
 }

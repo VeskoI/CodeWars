@@ -87,8 +87,27 @@ class MixedStorageUserRepositoryTest {
     }
 
     @Test
-    fun willReadSearchHistoryFromDatabaseOnly() {
-        given(userDao.getSearchHistoryOrderedBy(sortOption)).willReturn(searchHistoryLiveData)
+    fun willReadSearchHistoryFromDatabaseBySearchTime() {
+        given(userDao.getSearchHistoryBySearchTime()).willReturn(searchHistoryLiveData)
+
+        willReadSearchHistoryFromDatabaseBy(SortOption.SEARCH_TIME)
+    }
+
+    @Test
+    fun willReadSearchHistoryFromDatabaseByRank() {
+        given(userDao.getSearchHistoryByRank()).willReturn(searchHistoryLiveData)
+
+        willReadSearchHistoryFromDatabaseBy(SortOption.RANK)
+    }
+
+    @Test
+    fun willReadSearchHistoryFromDatabaseByLeaderBoardPosition() {
+        given(userDao.getSearchHistoryByLeaderBoardPosition()).willReturn(searchHistoryLiveData)
+
+        willReadSearchHistoryFromDatabaseBy(SortOption.LEADER_BOARD_POSITION)
+    }
+
+    private fun willReadSearchHistoryFromDatabaseBy(sortOption: SortOption) {
         searchHistoryObserver = LiveDataTestUtils.observeLiveData(underTest.getSearchHistory(sortOption))
 
         searchHistoryLiveData.value = TestUser.usersList

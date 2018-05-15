@@ -1,5 +1,7 @@
 package com.veskoiliev.codewars.data.local.model
 
-enum class SortOption(val column: String) {
-    SEARCH_TIME("searchedTimestamp"), RANK("rank")
+enum class SortOption {
+    SEARCH_TIME,
+    RANK,
+    LEADER_BOARD_POSITION
 }
