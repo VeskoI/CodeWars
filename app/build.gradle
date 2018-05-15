@@ -46,6 +46,9 @@ dependencies {
             "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     )
 
+    // OkHttp logging
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_version"
+
     // Rx
     implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"

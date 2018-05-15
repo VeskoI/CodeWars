@@ -7,6 +7,7 @@ import com.veskoiliev.codewars.data.remote.CodeWarsApiService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,10 +22,18 @@ class NetworkModule {
     fun provideGson(): Gson = GsonBuilder().create()
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
+        return loggingInterceptor
+    }
+
+    @Provides
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+            .addInterceptor(httpLoggingInterceptor)
             .build()
 
     @Provides
