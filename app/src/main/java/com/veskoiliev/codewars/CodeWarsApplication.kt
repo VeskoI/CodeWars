@@ -15,6 +15,7 @@ class CodeWarsApplication : Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
         DaggerAppComponent.builder()
+                .app(this)
                 .build()
                 .inject(this)
 
