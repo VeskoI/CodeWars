@@ -8,6 +8,7 @@ import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.Resource
 import com.veskoiliev.codewars.data.local.model.User
 import com.veskoiliev.codewars.data.repository.UserRepository
+import com.veskoiliev.codewars.testdata.TestUser
 import com.veskoiliev.codewars.utils.LiveDataTestUtils.observeLiveData
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
@@ -35,9 +36,7 @@ class SearchViewModelTest {
     private lateinit var searchHistoryObserver: Observer<List<User>>
 
     private val userName = "someUsername"
-    private val user = User(name = "name", rank = 123, bestLanguage = "Kotlin", bestLanguagePoints = 3432)
     private val searchHistoryLiveData = MutableLiveData<List<User>>()
-    private val searchHistoryUsers = listOf(user, user, user)
 
     @Before
     fun setUp() {
@@ -57,12 +56,12 @@ class SearchViewModelTest {
 
     @Test
     fun willDisplayUserWhenLoadedSuccessfully() {
-        whenUserSearchResultsIn(Single.just(user))
+        whenUserSearchResultsIn(Single.just(TestUser.user))
 
         underTest.onSearchClicked(userName)
 
         verify(searchedUserObserver).onChanged(Resource.LoadingResource())
-        verify(searchedUserObserver).onChanged(Resource.SuccessResource(user))
+        verify(searchedUserObserver).onChanged(Resource.SuccessResource(TestUser.user))
     }
 
     @Test
@@ -70,9 +69,9 @@ class SearchViewModelTest {
         whenSearchHistoryIs(searchHistoryLiveData)
         searchHistoryObserver = observeLiveData(underTest.searchHistory())
 
-        searchHistoryLiveData.value = searchHistoryUsers
+        searchHistoryLiveData.value = TestUser.usersList
 
-        verify(searchHistoryObserver).onChanged(searchHistoryUsers)
+        verify(searchHistoryObserver).onChanged(TestUser.usersList)
     }
 
     private fun whenUserSearchResultsIn(result: Single<User>) {
