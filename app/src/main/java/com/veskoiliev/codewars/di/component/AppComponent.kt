@@ -12,7 +12,8 @@ import dagger.android.support.AndroidSupportInjectionModule
     RepositoryModule::class,
     ViewModelModule::class,
     RxModule::class,
-    DatabaseModule::class
+    DatabaseModule::class,
+    NetworkModule::class
 ])
 interface AppComponent {
 
