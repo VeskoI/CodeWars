@@ -15,6 +15,12 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/search_history_item_leader_board_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceSmall" />
+
+    <TextView
         android:id="@+id/search_history_item_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

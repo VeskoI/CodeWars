@@ -10,7 +10,8 @@ class SearchHistoryViewHolder(private val view: View) : RecyclerView.ViewHolder(
 
     fun bind(user: User, clickListener: UserSelectedListener) {
         view.setOnClickListener { clickListener.onUserSelected(user) }
-        view.search_history_item_name.text = user.name
+        view.search_history_item_name.text = if (user.name.isNotEmpty()) user.name else user.username
+        view.search_history_item_leader_board_position.text = view.context.getString(R.string.formatted_leader_board_position, user.leaderBoardPosition)
         view.search_history_item_rank.text = view.context.getString(R.string.formatted_rank, user.rank)
         view.search_history_item_best_language.text = view.context.getString(R.string.formatted_best_language, user.bestLanguage, user.bestLanguagePoints)
     }
