@@ -1,13 +1,20 @@
 package com.veskoiliev.codewars.data.repository
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
 import com.veskoiliev.codewars.data.local.db.UserDao
+import com.veskoiliev.codewars.data.local.model.SortOption
 import com.veskoiliev.codewars.data.local.model.User
 import com.veskoiliev.codewars.data.remote.CodeWarsRestApi
 import com.veskoiliev.codewars.domain.TimeProvider
 import com.veskoiliev.codewars.testdata.TestUser
+import com.veskoiliev.codewars.utils.LiveDataTestUtils
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.BDDMockito.given
@@ -18,6 +25,9 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class MixedStorageUserRepositoryTest {
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var userDao: UserDao
@@ -35,9 +45,13 @@ class MixedStorageUserRepositoryTest {
     private val userNotAvailableError = Single.error<User>(Throwable("user not available"))
     private val currentTime = 1232131L
 
+    private val sortOption = SortOption.RANK
+    private val searchHistoryLiveData = MutableLiveData<List<User>>()
+    private lateinit var searchHistoryObserver: Observer<List<User>>
+
     @Before
     fun setUp() {
-        underTest = MixedStorageUserRepository(userDao, restApi, timeProvider)
+        underTest = MixedStorageUserRepository(userDao, restApi, timeProvider, Schedulers.trampoline())
     }
 
     @Test
@@ -70,6 +84,16 @@ class MixedStorageUserRepositoryTest {
 
         userObserver.assertValue(TestUser.user)
         verify(userDao).saveUser(TestUser.user.copy(searchedTimestamp = currentTime))
+    }
+
+    @Test
+    fun willReadSearchHistoryFromDatabaseOnly() {
+        given(userDao.getSearchHistoryOrderedBy(sortOption)).willReturn(searchHistoryLiveData)
+        searchHistoryObserver = LiveDataTestUtils.observeLiveData(underTest.getSearchHistory(sortOption))
+
+        searchHistoryLiveData.value = TestUser.usersList
+
+        searchHistoryObserver.onChanged(TestUser.usersList)
     }
 
     private fun whenLocalStorageContainsUser(result: Single<User>) {
