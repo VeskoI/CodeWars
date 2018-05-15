@@ -10,13 +10,12 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.veskoiliev.codewars.R
-import com.veskoiliev.codewars.data.Resource
 import com.veskoiliev.codewars.data.local.model.User
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search_user.*
 import javax.inject.Inject
 
-class SearchUserActivity : AppCompatActivity(), SearchUserView, UserClickListener {
+class SearchUserActivity : AppCompatActivity(), SearchUserView {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -36,7 +35,7 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView, UserClickListene
 
         initViewModel()
         initViews()
-        searchViewModel.searchedUser().observe(this, Observer { it?.let { handleSearchedUserResource(it) } })
+        searchViewModel.searchedUser().observe(this, Observer { binder.bindSearchedUserResource(it) })
         searchViewModel.searchHistory().observe(this, Observer { it?.let { binder.bindSearchHistory(it) } })
     }
 
@@ -52,28 +51,10 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView, UserClickListene
         search_history_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
-    private fun handleSearchedUserResource(userResource: Resource<User>) {
-        when (userResource) {
-            is Resource.LoadingResource -> {
-                search_loading_progress.show()
-            }
-            is Resource.ErrorResource -> {
-                search_loading_progress.hide()
-                Snackbar.make(search_user_root_view, userResource.errorMessage, Snackbar.LENGTH_LONG).show()
-            }
-            is Resource.SuccessResource -> {
-                search_loading_progress.hide()
-                openUserDetailsScreen(userResource.data!!)
-            }
-        }
-    }
-
-    private fun openUserDetailsScreen(user: User) {
+    override fun onUserSelected(user: User) {
         // TODO open the next screen. For now, just display a happy message
         Snackbar.make(search_user_root_view, "Wooohoo, user found: ${user.name}", Snackbar.LENGTH_LONG).show()
     }
-
-    override fun onUserSelected(user: User) = openUserDetailsScreen(user)
 
     override fun toggleEmptyView(visible: Boolean) {
         search_empty_view.visibility = if (visible) View.VISIBLE else View.GONE
@@ -81,6 +62,16 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView, UserClickListene
 
     override fun hideUserHistoryList() {
         search_history_list.visibility = View.GONE
+    }
+
+    override fun displayError(errorMessage: Int) {
+        Snackbar.make(search_user_root_view, errorMessage, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun toggleLoading(visible: Boolean) = if (visible) {
+        search_loading_progress.show()
+    } else {
+        search_loading_progress.hide()
     }
 
     override fun showUserHistoryList(usersList: List<User>) {

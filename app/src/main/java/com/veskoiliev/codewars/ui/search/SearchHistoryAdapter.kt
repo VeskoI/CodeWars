@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.local.model.User
 
-class SearchHistoryAdapter(var items: List<User>, val itemClickListener: UserClickListener): RecyclerView.Adapter<SearchHistoryViewHolder>() {
-
+class SearchHistoryAdapter(var items: List<User>, private val itemSelectedListener: UserSelectedListener): RecyclerView.Adapter<SearchHistoryViewHolder>() {
 
     override fun getItemCount() = items.size
 
@@ -17,6 +16,6 @@ class SearchHistoryAdapter(var items: List<User>, val itemClickListener: UserCli
     }
 
     override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
-        holder.bind(items[position], itemClickListener)
+        holder.bind(items[position], itemSelectedListener)
     }
 }
