@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface UserRepository {
 
-    fun getUser(username: String): Single<User>
+    fun getUser(userName: String): Single<User>
 
     fun getSearchHistory(sortOption: SortOption): LiveData<List<User>>
 }

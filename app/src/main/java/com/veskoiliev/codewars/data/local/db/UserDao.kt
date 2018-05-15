@@ -6,16 +6,17 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.veskoiliev.codewars.data.local.model.User
+import io.reactivex.Single
 
 @Dao
 interface UserDao {
 
     @Query("SELECT * FROM user WHERE username = :username")
-    fun getUser(username: String): User
+    fun getUser(username: String): Single<User>
 
     @Query("SELECT * FROM user")
     fun getSearchHistory(): LiveData<List<User>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: User)
+    fun saveUser(user: User)
 }
