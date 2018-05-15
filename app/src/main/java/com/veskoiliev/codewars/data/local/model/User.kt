@@ -9,7 +9,8 @@ data class User(
         val username: String,
         val name: String,
         val rank: Long,
-        val bestLanguage: String,
-        val bestLanguagePoints: Long,
+        val leaderBoardPosition: Long,
+        val bestLanguage: String?,
+        val bestLanguagePoints: Long?,
         val searchedTimestamp: Long = 0
 )
