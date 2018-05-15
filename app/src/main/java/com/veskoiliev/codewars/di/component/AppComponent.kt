@@ -1,10 +1,8 @@
 package com.veskoiliev.codewars.di.component
 
 import com.veskoiliev.codewars.CodeWarsApplication
-import com.veskoiliev.codewars.di.module.ActivityModule
-import com.veskoiliev.codewars.di.module.RepositoryModule
-import com.veskoiliev.codewars.di.module.RxModule
-import com.veskoiliev.codewars.di.module.ViewModelModule
+import com.veskoiliev.codewars.di.module.*
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
 
@@ -13,9 +11,18 @@ import dagger.android.support.AndroidSupportInjectionModule
     ActivityModule::class,
     RepositoryModule::class,
     ViewModelModule::class,
-    RxModule::class
+    RxModule::class,
+    DatabaseModule::class
 ])
 interface AppComponent {
+
+    @Component.Builder
+    interface Builder {
+        fun build(): AppComponent
+
+        @BindsInstance
+        fun app(app: CodeWarsApplication): Builder
+    }
 
     fun inject(app: CodeWarsApplication)
 }
