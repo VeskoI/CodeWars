@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.Resource
+import com.veskoiliev.codewars.data.local.model.SortOption
 import com.veskoiliev.codewars.data.local.model.User
 import com.veskoiliev.codewars.data.repository.UserRepository
 import com.veskoiliev.codewars.di.component.NamedParams
@@ -25,8 +26,8 @@ class SearchViewModel @Inject constructor(
         return searchedUser
     }
 
-    fun searchHistory(): LiveData<List<User>> {
-        return userRepository.getSearchHistory()
+    fun searchHistory(sortOption: SortOption): LiveData<List<User>> {
+        return userRepository.getSearchHistory(sortOption)
     }
 
     fun onSearchClicked(userName: String) {

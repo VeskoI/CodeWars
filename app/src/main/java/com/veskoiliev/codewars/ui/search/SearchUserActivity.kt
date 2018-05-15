@@ -10,6 +10,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.veskoiliev.codewars.R
+import com.veskoiliev.codewars.data.local.model.SortOption
 import com.veskoiliev.codewars.data.local.model.User
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search_user.*
@@ -36,7 +37,7 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView {
         initViewModel()
         initViews()
         searchViewModel.searchedUser().observe(this, Observer { binder.bindSearchedUserResource(it) })
-        searchViewModel.searchHistory().observe(this, Observer { it?.let { binder.bindSearchHistory(it) } })
+        searchViewModel.searchHistory(SortOption.SEARCH_TIME).observe(this, Observer { it?.let { binder.bindSearchHistory(it) } })
     }
 
     private fun initViewModel() {

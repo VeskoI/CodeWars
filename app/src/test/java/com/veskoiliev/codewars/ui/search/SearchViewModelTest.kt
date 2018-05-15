@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.Resource
+import com.veskoiliev.codewars.data.local.model.SortOption
 import com.veskoiliev.codewars.data.local.model.User
 import com.veskoiliev.codewars.data.repository.UserRepository
 import com.veskoiliev.codewars.testdata.TestUser
@@ -37,6 +38,7 @@ class SearchViewModelTest {
 
     private val userName = "someUsername"
     private val searchHistoryLiveData = MutableLiveData<List<User>>()
+    private val sortOption = SortOption.RANK
 
     @Before
     fun setUp() {
@@ -67,7 +69,7 @@ class SearchViewModelTest {
     @Test
     fun willDisplaySearchHistoryFromTheRepository() {
         whenSearchHistoryIs(searchHistoryLiveData)
-        searchHistoryObserver = observeLiveData(underTest.searchHistory())
+        searchHistoryObserver = observeLiveData(underTest.searchHistory(sortOption))
 
         searchHistoryLiveData.value = TestUser.usersList
 
@@ -79,6 +81,6 @@ class SearchViewModelTest {
     }
 
     private fun whenSearchHistoryIs(result: LiveData<List<User>>) {
-        given(userRepository.getSearchHistory()).willReturn(result)
+        given(userRepository.getSearchHistory(sortOption)).willReturn(result)
     }
 }
