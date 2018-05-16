@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.veskoiliev.codewars.ui.search.SearchUserActivity
 import com.veskoiliev.rule.ClearAppDataRule
+import com.veskoiliev.rule.SynchroniseRxJavaRule
 import com.veskoiliev.rule.mockwebserver.MockWebServerRule
 import org.junit.Before
 import org.junit.Rule
@@ -28,6 +29,7 @@ abstract class BaseInstrumentationTestCase {
     val rules: TestRule = RuleChain
             .outerRule(ClearAppDataRule())
             .around(serverRule)
+            .around(SynchroniseRxJavaRule())
             .around(activityRule)
 
     lateinit var given: Given
