@@ -11,7 +11,7 @@ class UserMapper @Inject constructor() {
 
         return User(
                 username = networkModel.username,
-                name = networkModel.name,
+                name = if (networkModel.name.isNotEmpty()) networkModel.name else networkModel.username,
                 rank = networkModel.ranks.overallRank.rank,
                 leaderBoardPosition = networkModel.leaderBoardPosition,
                 bestLanguage = bestLanguage.name,

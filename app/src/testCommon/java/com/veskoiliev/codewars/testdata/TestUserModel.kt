@@ -37,4 +37,6 @@ object TestUserModel {
                     languages = emptyMap()
             )
     )
+
+    val userWithoutName = userModel.copy(name = "")
 }

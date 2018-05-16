@@ -2,6 +2,7 @@ package com.veskoiliev.codewars.data.remote.mapper
 
 import com.veskoiliev.codewars.data.local.model.User
 import com.veskoiliev.codewars.testdata.TestUserModel
+import junit.framework.Assert.assertEquals
 import org.hamcrest.Matchers.samePropertyValuesAs
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -39,5 +40,15 @@ class UserMapperTest {
                 bestLanguage = null,
                 bestLanguagePoints = null
         )))
+    }
+
+    @Test
+    fun willUseUsernameIfNameNotAvailable() {
+        val userWithoutName = TestUserModel.userWithoutName
+
+        val result = underTest.map(userWithoutName)
+
+        assertEquals(userWithoutName.username, result.name)
+        assertEquals(userWithoutName.username, result.username)
     }
 }
