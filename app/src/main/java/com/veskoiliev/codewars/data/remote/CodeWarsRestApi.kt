@@ -18,6 +18,6 @@ class CodeWarsRestApi @Inject constructor(private val service: CodeWarsApiServic
 
     fun getCompletedChallenges(userName: String, page: Int): Single<List<CompletedChallenge>> {
         return service.getCompletedChallenges(userName, page)
-                .map { challengesMapper.mapCompletedChallenges(it) }
+                .map { challengesMapper.mapCompletedChallenges(it, page) }
     }
 }

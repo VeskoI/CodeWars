@@ -11,12 +11,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class ChallengesMapperTest {
 
     private val underTest = ChallengesMapper()
+    private val page = 7
 
     @Test
     fun willMapCompletedChallengesSuccessfully() {
         // This test heavily relies on the test values from TestCompletedChallenge
-        val result = underTest.mapCompletedChallenges(completedChallengesResponseModel)
+        val result = underTest.mapCompletedChallenges(completedChallengesResponseModel, page)
 
-        assertEquals(completedChallengesList, result)
+        assertEquals(completedChallengesList(page), result)
     }
 }

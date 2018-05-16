@@ -5,8 +5,8 @@ import android.arch.lifecycle.Observer
 import com.veskoiliev.codewars.data.NetworkState
 import com.veskoiliev.codewars.data.local.model.challenge.CompletedChallenge
 import com.veskoiliev.codewars.data.remote.CodeWarsRestApi
+import com.veskoiliev.codewars.testdata.TestCompletedChallenge
 import com.veskoiliev.codewars.testdata.TestCompletedChallenge.completedChallenge
-import com.veskoiliev.codewars.testdata.TestCompletedChallenge.completedChallengesList
 import com.veskoiliev.codewars.testdata.TestUserModel.userName
 import com.veskoiliev.codewars.utils.LiveDataTestUtils.observeLiveData
 import io.reactivex.Single
@@ -36,6 +36,7 @@ class CompletedChallengeBoundaryCallbackTest {
     private lateinit var networkStateObserver: Observer<NetworkState>
     private val initialPage = 0
     private var success = 0
+    private val completedChallengesList = TestCompletedChallenge.completedChallengesList()
 
     @Suppress("UNUSED_ANONYMOUS_PARAMETER") // kept for readability
     @Before

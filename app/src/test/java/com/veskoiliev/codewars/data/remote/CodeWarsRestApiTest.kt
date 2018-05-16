@@ -6,7 +6,7 @@ import com.veskoiliev.codewars.data.remote.mapper.ChallengesMapper
 import com.veskoiliev.codewars.data.remote.mapper.UserMapper
 import com.veskoiliev.codewars.data.remote.model.UserModel
 import com.veskoiliev.codewars.data.remote.model.challenge.CompletedChallengesResponseModel
-import com.veskoiliev.codewars.testdata.TestCompletedChallenge.completedChallengesList
+import com.veskoiliev.codewars.testdata.TestCompletedChallenge
 import com.veskoiliev.codewars.testdata.TestCompletedChallenge.completedChallengesResponseModel
 import com.veskoiliev.codewars.testdata.TestUser
 import com.veskoiliev.codewars.testdata.TestUserModel
@@ -37,6 +37,7 @@ class CodeWarsRestApiTest {
     private val getUserObserver = TestObserver<User>()
     private val getCompletedChallengesObserver = TestObserver<List<CompletedChallenge>>()
     private val networkError = Throwable()
+    private val completedChallengesList = TestCompletedChallenge.completedChallengesList()
 
     @Before
     fun setUp() {
@@ -96,6 +97,6 @@ class CodeWarsRestApiTest {
     }
 
     private fun whenCompletedChallengesMapCorrectly(networkModel: CompletedChallengesResponseModel, completedChallengesList: List<CompletedChallenge>) {
-        given(challengesMapper.mapCompletedChallenges(networkModel)).willReturn(completedChallengesList)
+        given(challengesMapper.mapCompletedChallenges(networkModel, requestPage)).willReturn(completedChallengesList)
     }
 }

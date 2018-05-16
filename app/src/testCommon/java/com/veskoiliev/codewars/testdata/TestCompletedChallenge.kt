@@ -16,11 +16,11 @@ object TestCompletedChallenge {
             )
     )
 
-    val completedChallengesList = listOf(
-            CompletedChallenge("id1", "name1", "completedAt1"),
-            CompletedChallenge("id2", "name2", "completedAt2"),
-            CompletedChallenge("id3", "name3", "completedAt3")
+    fun completedChallengesList(page: Int = 0) = listOf(
+            CompletedChallenge("id1", "name1", "completedAt1", page),
+            CompletedChallenge("id2", "name2", "completedAt2", page),
+            CompletedChallenge("id3", "name3", "completedAt3", page)
     )
 
-    val completedChallenge = CompletedChallenge("id1", "name1", "completedAt1")
+    val completedChallenge = CompletedChallenge("id1", "name1", "completedAt1", 0)
 }

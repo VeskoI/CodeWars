@@ -8,5 +8,6 @@ data class CompletedChallenge(
         @PrimaryKey
         val id: String,
         val name: String,
-        val completedAt: String
+        val completedAt: String,
+        val networkPage: Int
 )

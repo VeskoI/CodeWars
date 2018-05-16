@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class ChallengesMapper @Inject constructor() {
 
-    fun mapCompletedChallenges(response: CompletedChallengesResponseModel): List<CompletedChallenge> =
+    fun mapCompletedChallenges(response: CompletedChallengesResponseModel, page: Int): List<CompletedChallenge> =
             response.data.map {
-                CompletedChallenge(id = it.id, name = it.name, completedAt = it.completedAt)
+                CompletedChallenge(id = it.id, name = it.name, completedAt = it.completedAt, networkPage = page)
             }
 }
