@@ -12,7 +12,10 @@ import com.veskoiliev.codewars.data.local.model.challenge.UserCompletedChallenge
 interface CompletedChallengeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(userCompletedChallengeJoin: UserCompletedChallengeJoin)
+    fun insertCompletedChallenge(completedChallenge: Array<CompletedChallenge>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertUserCompletedChallengeJoin(userCompletedChallengeJoin: Array<UserCompletedChallengeJoin>)
 
     @Query("SELECT * FROM completedchallenge INNER JOIN usercompletedchallengejoin ON completedchallenge.id = usercompletedchallengejoin.challengeId WHERE usercompletedchallengejoin.userName = :userName")
     fun getChallengesForUser(userName: String): DataSource.Factory<Int, CompletedChallenge>

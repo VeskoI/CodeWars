@@ -24,5 +24,5 @@ import com.veskoiliev.codewars.data.local.model.User
 )
 data class UserCompletedChallengeJoin(
         val userName: String,
-        val challengeId: Long
+        val challengeId: String
 )

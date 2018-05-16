@@ -10,17 +10,17 @@ object TestCompletedChallenge {
             totalPages = 2,
             totalItems = 232,
             data = listOf(
-                    CompletedChallengeModel(1, "name1", "completedAt1"),
-                    CompletedChallengeModel(2, "name2", "completedAt2"),
-                    CompletedChallengeModel(3, "name3", "completedAt3")
+                    CompletedChallengeModel("id1", "name1", "completedAt1"),
+                    CompletedChallengeModel("id2", "name2", "completedAt2"),
+                    CompletedChallengeModel("id3", "name3", "completedAt3")
             )
     )
 
     val completedChallengesList = listOf(
-            CompletedChallenge(1, "name1", "completedAt1"),
-            CompletedChallenge(2, "name2", "completedAt2"),
-            CompletedChallenge(3, "name3", "completedAt3")
+            CompletedChallenge("id1", "name1", "completedAt1"),
+            CompletedChallenge("id2", "name2", "completedAt2"),
+            CompletedChallenge("id3", "name3", "completedAt3")
     )
 
-    val completedChallenge = CompletedChallenge(1, "name1", "completedAt1")
+    val completedChallenge = CompletedChallenge("id1", "name1", "completedAt1")
 }

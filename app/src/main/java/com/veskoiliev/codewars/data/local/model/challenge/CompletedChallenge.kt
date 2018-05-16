@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity
 data class CompletedChallenge(
         @PrimaryKey
-        val id: Long,
+        val id: String,
         val name: String,
         val completedAt: String
 )
