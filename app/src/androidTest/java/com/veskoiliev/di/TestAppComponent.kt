@@ -1,6 +1,7 @@
 package com.veskoiliev.di
 
 import com.veskoiliev.BaseInstrumentationTestCase
+import com.veskoiliev.Given
 import com.veskoiliev.codewars.CodeWarsApplication
 import com.veskoiliev.codewars.di.component.AppComponent
 import com.veskoiliev.codewars.di.module.*
@@ -31,4 +32,6 @@ interface TestAppComponent : AppComponent {
     }
 
     fun inject(instrumentationTestCase: BaseInstrumentationTestCase)
+
+    fun inject(given: Given)
 }

@@ -15,4 +15,13 @@ class SearchScreenTest : BaseInstrumentationTestCase() {
 
         then.user.sees.searchUserScreen.withUserNotFoundError()
     }
+
+    @Test
+    fun willDisplaySearchHistoryOrderedBySearchTimeByDefault() {
+        given.database.hasSearchHistoryInDatabase()
+
+        `when`.user.launchesTheApp()
+
+        then.user.sees.searchUserScreen.withUsersOrderedBySearchTime()
+    }
 }
