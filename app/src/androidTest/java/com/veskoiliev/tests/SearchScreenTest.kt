@@ -17,6 +17,16 @@ class SearchScreenTest : BaseInstrumentationTestCase() {
     }
 
     @Test
+    fun willOpenChallengeListIfUserFound() {
+        given.codeWarsServer.findsUserSuccessfully()
+
+        `when`.user.launchesTheApp()
+        `when`.user.onSearchScreen.searchesForUser(TEST_USER_NAME)
+
+        then.user.sees.challengeListScreen
+    }
+
+    @Test
     fun willDisplaySearchHistoryOrderedBySearchTimeByDefault() {
         given.database.hasSearchHistoryInDatabase()
 

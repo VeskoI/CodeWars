@@ -12,4 +12,7 @@
     <string name="sort_by_date">Date</string>
     <string name="sort_by_leaderboard_score">Leaderboard Pos</string>
     <string name="sort_by_rank">Rank</string>
+    <string name="title_activity_challenge_list">Challenges List</string>
+    <string name="menu_text_completed_challenges">Completed</string>
+    <string name="menu_text_authored_challenges">Authored</string>
 </resources>

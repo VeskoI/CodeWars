@@ -9,4 +9,5 @@ package com.veskoiliev.assertion
 class ScreenAssertion {
 
     val searchUserScreen: SearchScreenAssertions by lazy { SearchScreenAssertions() }
+    val challengeListScreen: ChallengeListScreenAssertions by lazy { ChallengeListScreenAssertions() }
 }

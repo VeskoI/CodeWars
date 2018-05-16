@@ -14,6 +14,7 @@ import android.view.View
 import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.local.model.SortOption
 import com.veskoiliev.codewars.data.local.model.User
+import com.veskoiliev.codewars.ui.challengelist.ChallengeListActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_search_user.*
 import javax.inject.Inject
@@ -56,8 +57,7 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView {
     }
 
     override fun onUserSelected(user: User) {
-        // TODO open the next screen. For now, just display a happy message
-        Snackbar.make(search_user_root_view, "Wooohoo, user found: ${user.name}", Snackbar.LENGTH_LONG).show()
+        startActivity(ChallengeListActivity.newIntent(this, user))
     }
 
     override fun toggleEmptyView(visible: Boolean) {
