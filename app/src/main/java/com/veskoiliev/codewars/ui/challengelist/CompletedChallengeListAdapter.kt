@@ -23,7 +23,7 @@ class CompletedChallengeListAdapter(
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return when(getItemViewType(viewType)) {
+        return when(viewType) {
             R.layout.list_item_completed_challenge -> {
                 val view = layoutInflater.inflate(R.layout.list_item_completed_challenge, parent, false)
                 CompletedChallengeViewHolder(view)
