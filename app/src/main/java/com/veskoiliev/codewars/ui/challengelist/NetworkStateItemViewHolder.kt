@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.list_item_network_state.view.*
 class NetworkStateItemViewHolder(private val view: View, private val retryCallback: () -> Unit) : RecyclerView.ViewHolder(view) {
 
     fun bind(networkState: NetworkState?) {
-        view.network_state_item_error_msg.visibility = toVisbility(networkState?.status == Status.RUNNING)
+        view.network_state_item_progress_bar.visibility = toVisbility(networkState?.status == Status.RUNNING)
         view.network_state_item_retry_button.visibility = toVisbility(networkState?.status == Status.FAILED)
         view.network_state_item_retry_button.setOnClickListener { retryCallback() }
         view.network_state_item_error_msg.visibility = toVisbility(networkState?.msg != null)
