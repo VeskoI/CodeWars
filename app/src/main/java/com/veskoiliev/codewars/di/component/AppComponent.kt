@@ -19,10 +19,13 @@ interface AppComponent {
 
     @Component.Builder
     interface Builder {
-        fun build(): AppComponent
 
         @BindsInstance
         fun app(app: CodeWarsApplication): Builder
+
+        fun networkModule(networkModule: NetworkModule): Builder
+
+        fun build(): AppComponent
     }
 
     fun inject(app: CodeWarsApplication)

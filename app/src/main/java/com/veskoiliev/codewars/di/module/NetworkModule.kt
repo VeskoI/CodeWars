@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 private const val TIMEOUT_SECONDS = 20L
 
 @Module
-class NetworkModule {
+class NetworkModule(private val apiBase: String) {
 
     @Provides
     fun provideGson(): Gson = GsonBuilder().create()
@@ -38,7 +38,7 @@ class NetworkModule {
 
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.API_BASE_URL)
+            .baseUrl(apiBase)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
