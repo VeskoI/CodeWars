@@ -21,4 +21,6 @@ object TestCompletedChallenge {
             CompletedChallenge(2, "name2", "completedAt2"),
             CompletedChallenge(3, "name3", "completedAt3")
     )
+
+    val completedChallenge = CompletedChallenge(1, "name1", "completedAt1")
 }
