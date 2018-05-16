@@ -24,4 +24,17 @@ class SearchScreenTest : BaseInstrumentationTestCase() {
 
         then.user.sees.searchUserScreen.withUsersOrderedBySearchTime()
     }
+
+    @Test
+    fun willReOrderItemsBasedOnSelectedSortingOption() {
+        given.database.hasSearchHistoryInDatabase()
+
+        `when`.user.launchesTheApp()
+
+        `when`.user.onSearchScreen.sortsItemsByRank()
+        then.user.sees.searchUserScreen.withUsersOrderedByRank()
+
+        `when`.user.onSearchScreen.sortsItemsByLeaderBoardPosition()
+        then.user.sees.searchUserScreen.withUsersOrderedByLeaderBoardPosition()
+    }
 }

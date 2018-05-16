@@ -22,9 +22,21 @@ class SearchScreenAssertions {
     }
 
     fun withUsersOrderedBySearchTime() {
+        assertUsersInOrder(TestUser.usersList)
+    }
+
+    fun withUsersOrderedByRank() {
+        assertUsersInOrder(TestUser.usersListSortedByRank)
+    }
+
+    fun withUsersOrderedByLeaderBoardPosition() {
+        assertUsersInOrder(TestUser.usersListSortedByLeaderBoardPosition)
+    }
+
+    private fun assertUsersInOrder(usersList: List<User>) {
         assertRecyclerViewItemCount(R.id.search_history_list, 3)
 
-        assertRecyclerViewItemsInOrder(R.id.search_history_list, usersInOrder(TestUser.usersList))
+        assertRecyclerViewItemsInOrder(R.id.search_history_list, usersInOrder(usersList))
     }
 
     private fun usersInOrder(users: List<User>): List<Matcher<View>> {
