@@ -81,9 +81,10 @@ class CompletedChallengeBoundaryCallbackTest {
 
     @Test
     fun successfulLoadingOfMoreDataWillTriggerSuccess() {
-        whenFetchingCompletedChallengesResultsIn(initialPage, Single.just(completedChallengesList))
+        val lastItemPage = initialPage
+        whenFetchingCompletedChallengesResultsIn(lastItemPage + 1, Single.just(completedChallengesList))
 
-        underTest.onItemAtEndLoaded(completedChallenge)
+        underTest.onItemAtEndLoaded(completedChallenge.copy(networkPage = lastItemPage))
 
         verifyNetworkStates(NetworkState.LOADING, NetworkState.LOADED)
         verifySuccessfulCallbackExecuted()
@@ -91,21 +92,23 @@ class CompletedChallengeBoundaryCallbackTest {
 
     @Test
     fun fetchingMoreDataCanBeTriggeredOnlyOnce() {
-        whenFetchingCompletedChallengesResultsIn(initialPage, Single.just(completedChallengesList).delay(5, TimeUnit.SECONDS))
+        val lastItemPage = initialPage
+        whenFetchingCompletedChallengesResultsIn(lastItemPage + 1, Single.just(completedChallengesList).delay(5, TimeUnit.SECONDS))
 
-        underTest.onItemAtEndLoaded(completedChallenge)
-        underTest.onItemAtEndLoaded(completedChallenge)
+        underTest.onItemAtEndLoaded(completedChallenge.copy(networkPage = lastItemPage))
+        underTest.onItemAtEndLoaded(completedChallenge.copy(networkPage = lastItemPage))
 
-        verify(restApi).getCompletedChallenges(userName, initialPage)
+        verify(restApi).getCompletedChallenges(userName, lastItemPage + 1)
         verifyNetworkStates(NetworkState.LOADING)
         verifyResponseCallbackNotTriggered()
     }
 
     @Test
     fun failedLoadingCallWillTriggerError() {
-        whenFetchingCompletedChallengesResultsIn(initialPage, Single.error(Throwable("message")))
+        val lastItemPage = initialPage
+        whenFetchingCompletedChallengesResultsIn(lastItemPage + 1, Single.error(Throwable("message")))
 
-        underTest.onItemAtEndLoaded(completedChallenge)
+        underTest.onItemAtEndLoaded(completedChallenge.copy(networkPage = lastItemPage))
 
         verifyNetworkStates(NetworkState.LOADING, NetworkState.error("message"))
         verifyResponseCallbackNotTriggered()

@@ -28,7 +28,6 @@ class CompletedChallengeBoundaryCallback(
     private val networkState = MutableLiveData<NetworkState>()
     private var initialLoadingDisposable: Disposable? = null
     private var loadingMoreDisposable: Disposable? = null
-    private var currentPage = 0
 
     fun networkState(): LiveData<NetworkState> = networkState
 
@@ -37,7 +36,7 @@ class CompletedChallengeBoundaryCallback(
      */
     override fun onZeroItemsLoaded() {
         if (!initialCallRunning()) {
-            initialLoadingDisposable = loadData(currentPage++)
+            initialLoadingDisposable = loadData(0)
         }
     }
 
@@ -46,7 +45,7 @@ class CompletedChallengeBoundaryCallback(
      */
     override fun onItemAtEndLoaded(itemAtEnd: CompletedChallenge) {
         if (!loadingMoreData()) {
-            loadingMoreDisposable = loadData(currentPage++)
+            loadingMoreDisposable = loadData(itemAtEnd.networkPage + 1)
         }
     }
 
