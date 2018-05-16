@@ -20,6 +20,7 @@ class DatabaseModule {
     @Provides
     fun provideDatabase(application: CodeWarsApplication): Database {
         return Room.databaseBuilder(application, Database::class.java, databaseName)
+                .fallbackToDestructiveMigration()
                 .build()
     }
 }
