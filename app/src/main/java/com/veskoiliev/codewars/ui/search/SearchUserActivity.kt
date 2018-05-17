@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.veskoiliev.codewars.R
 import com.veskoiliev.codewars.data.local.model.SortOption
 import com.veskoiliev.codewars.data.local.model.User
@@ -49,11 +50,23 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView {
     }
 
     private fun initViews() {
-        search_btn.setOnClickListener { searchViewModel.onSearchClicked(search_username_field.text.toString()) }
+        search_username_field.setOnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchForUser(textView.text.toString())
+                true
+            } else {
+                false
+            }
+        }
+        search_btn.setOnClickListener { searchForUser(search_username_field.text.toString()) }
 
         search_history_list.layoutManager = searchHistoryLayoutManager
         search_history_list.adapter = searchHistoryAdapter
         search_history_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+    }
+
+    private fun searchForUser(userName: String) {
+        searchViewModel.onSearchClicked(userName)
     }
 
     override fun onUserSelected(user: User) {
@@ -90,7 +103,7 @@ class SearchUserActivity : AppCompatActivity(), SearchUserView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.menu_item_sort_by_date -> {
                 observeSearchHistoryOrderedBy(SortOption.SEARCH_TIME)
                 return true
