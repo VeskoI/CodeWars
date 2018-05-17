@@ -71,10 +71,10 @@ class ChallengeListActivity : AppCompatActivity() {
             challengeListAdapter.setNetworkState(it)
         })
 
-        completedChallengesViewModel.init(getUserName())
+        completedChallengesViewModel.init(getUser().username)
     }
 
-    private fun getUserName() = intent.getParcelableExtra<User>(EXTRA_USER)?.username
+    private fun getUser(): User = intent.getParcelableExtra(EXTRA_USER)
             ?: throw IllegalStateException("Cannot start ChallengeActivity without user")
 
     private fun initViewModel() {
@@ -82,6 +82,7 @@ class ChallengeListActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        title = getUser().name
         challenge_list_bottom_navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
 
         challenge_list.layoutManager = challengeListLayoutManager

@@ -23,7 +23,6 @@
         </activity>
         <activity
             android:name=".ui.challengelist.ChallengeListActivity"
-            android:label="@string/title_activity_challenge_list"
             android:parentActivityName=".ui.search.SearchUserActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
