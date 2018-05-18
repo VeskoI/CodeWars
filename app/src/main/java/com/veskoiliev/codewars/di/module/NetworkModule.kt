@@ -12,15 +12,18 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 private const val TIMEOUT_SECONDS = 20L
 
 @Module
 class NetworkModule(private val apiBase: String) {
 
+    @Singleton
     @Provides
     fun provideGson(): Gson = GsonBuilder().create()
 
+    @Singleton
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor()
@@ -28,6 +31,7 @@ class NetworkModule(private val apiBase: String) {
         return loggingInterceptor
     }
 
+    @Singleton
     @Provides
     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
@@ -36,6 +40,7 @@ class NetworkModule(private val apiBase: String) {
             .addInterceptor(httpLoggingInterceptor)
             .build()
 
+    @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit = Retrofit.Builder()
             .baseUrl(apiBase)
@@ -44,6 +49,7 @@ class NetworkModule(private val apiBase: String) {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
+    @Singleton
     @Provides
     fun provideCodeWarsApiService(retrofit: Retrofit): CodeWarsApiService {
         return retrofit.create(CodeWarsApiService::class.java)

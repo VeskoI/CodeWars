@@ -6,17 +6,20 @@ import com.veskoiliev.codewars.data.local.db.Database
 import com.veskoiliev.codewars.data.local.db.UserDao
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class DatabaseModule {
 
     private val databaseName = "codewars.db"
 
+    @Singleton
     @Provides
     fun provideUserDao(database: Database): UserDao {
         return database.userDao()
     }
 
+    @Singleton
     @Provides
     fun provideDatabase(application: CodeWarsApplication): Database {
         return Room.databaseBuilder(application, Database::class.java, databaseName)

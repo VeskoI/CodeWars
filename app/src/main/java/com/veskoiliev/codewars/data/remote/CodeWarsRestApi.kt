@@ -6,7 +6,9 @@ import com.veskoiliev.codewars.data.remote.mapper.ChallengesMapper
 import com.veskoiliev.codewars.data.remote.mapper.UserMapper
 import io.reactivex.Single
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class CodeWarsRestApi @Inject constructor(private val service: CodeWarsApiService,
                                           private val userMapper: UserMapper,
                                           private val challengesMapper: ChallengesMapper) {
