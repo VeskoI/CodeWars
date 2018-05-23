@@ -44,13 +44,17 @@ dependencies {
     implementation "com.android.support:design:$app_compat_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
     implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation "com.android.support:support-v4:$app_compat_version"
 
     // Architecture components
     implementation(
             "android.arch.lifecycle:extensions:$arch_components_version",
             "android.arch.persistence.room:runtime:$arch_components_version",
             "android.arch.persistence.room:rxjava2:$arch_components_version",
-            "android.arch.paging:runtime:$paging_version"
+            "android.arch.paging:runtime:$paging_version",
+            "android.arch.navigation:navigation-fragment-ktx:$arch_navigation_version",
+            "android.arch.navigation:navigation-ui-ktx:$arch_navigation_version"
+
     )
     kapt "android.arch.persistence.room:compiler:$arch_components_version"
 
