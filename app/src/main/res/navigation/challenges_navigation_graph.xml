@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/completedChallengesFragment">
+
+    <fragment
+        android:id="@+id/completedChallengesFragment"
+        android:name="com.veskoiliev.codewars.ui.challengelist.CompletedChallengesFragment"
+        android:label="CompletedChallengesFragment"
+        tools:layout="@layout/fragment_completed_challenges" />
+
+    <fragment
+        android:id="@+id/authoredChallengesFragment"
+        android:name="com.veskoiliev.codewars.AuthoredChallengesFragment"
+        android:label="fragment_authored_challenges"
+        tools:layout="@layout/fragment_authored_challenges" />
+</navigation>
