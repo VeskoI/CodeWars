@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/authoredChallengesFragment"
-        android:name="com.veskoiliev.codewars.AuthoredChallengesFragment"
+        android:name="com.veskoiliev.codewars.ui.challengelist.authored.AuthoredChallengesFragment"
         android:label="fragment_authored_challenges"
         tools:layout="@layout/fragment_authored_challenges" />
 </navigation>

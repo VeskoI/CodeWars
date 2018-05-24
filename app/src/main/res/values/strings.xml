@@ -15,4 +15,6 @@
     <string name="menu_text_completed_challenges">Completed</string>
     <string name="menu_text_authored_challenges">Authored</string>
     <string name="retry">Retry</string>
+    <string name="authored_challenges_empty_text">This user hasn\'t authored any challenges yet.</string>
+    <string name="error_fetching_authored_challenges">Sorry, cannot fetch authored challenges now</string>
 </resources>
