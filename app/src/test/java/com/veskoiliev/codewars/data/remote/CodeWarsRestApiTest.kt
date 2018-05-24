@@ -1,11 +1,14 @@
 package com.veskoiliev.codewars.data.remote
 
 import com.veskoiliev.codewars.data.local.model.User
+import com.veskoiliev.codewars.data.local.model.challenge.AuthoredChallenge
 import com.veskoiliev.codewars.data.local.model.challenge.CompletedChallenge
 import com.veskoiliev.codewars.data.remote.mapper.ChallengesMapper
 import com.veskoiliev.codewars.data.remote.mapper.UserMapper
 import com.veskoiliev.codewars.data.remote.model.UserModel
+import com.veskoiliev.codewars.data.remote.model.challenge.AuthoredChallengesResponseModel
 import com.veskoiliev.codewars.data.remote.model.challenge.CompletedChallengesResponseModel
+import com.veskoiliev.codewars.testdata.TestAuthoredChallenge
 import com.veskoiliev.codewars.testdata.TestCompletedChallenge
 import com.veskoiliev.codewars.testdata.TestCompletedChallenge.completedChallengesResponseModel
 import com.veskoiliev.codewars.testdata.TestUser
@@ -36,8 +39,10 @@ class CodeWarsRestApiTest {
     private val requestPage = 2
     private val getUserObserver = TestObserver<User>()
     private val getCompletedChallengesObserver = TestObserver<List<CompletedChallenge>>()
+    private val getAuthoredChallengesObserver = TestObserver<List<AuthoredChallenge>>()
     private val networkError = Throwable()
     private val completedChallengesList = TestCompletedChallenge.completedChallengesList()
+    private val authoredChallengesList = TestAuthoredChallenge.authoredChallengesList()
 
     @Before
     fun setUp() {
@@ -84,6 +89,26 @@ class CodeWarsRestApiTest {
         getCompletedChallengesObserver.assertValue(completedChallengesList)
     }
 
+    @Test
+    fun willThrowErrorIfFetchingAuthoredChallengesFails() {
+        whenGetAuthoredChallengesResultsIn(Single.error(networkError))
+
+        underTest.getAuthoredChallenges(userName).subscribe(getAuthoredChallengesObserver)
+
+        getAuthoredChallengesObserver.assertError(networkError)
+    }
+
+    @Test
+    fun willReturnAuthoredChallengesCorrectly() {
+        val networkModel = TestAuthoredChallenge.authoredChallengesResponseModel
+        whenGetAuthoredChallengesResultsIn(Single.just(networkModel))
+        whenAuthoredChallengesMapsCorrectly(networkModel, authoredChallengesList)
+
+        underTest.getAuthoredChallenges(userName).subscribe(getAuthoredChallengesObserver)
+
+        getAuthoredChallengesObserver.assertValue(authoredChallengesList)
+    }
+
     private fun whenGetUserCallResultsIn(result: Single<UserModel>) {
         given(service.getUser(userName)).willReturn(result)
     }
@@ -98,5 +123,13 @@ class CodeWarsRestApiTest {
 
     private fun whenCompletedChallengesMapCorrectly(networkModel: CompletedChallengesResponseModel, completedChallengesList: List<CompletedChallenge>) {
         given(challengesMapper.mapCompletedChallenges(networkModel, requestPage)).willReturn(completedChallengesList)
+    }
+
+    private fun whenGetAuthoredChallengesResultsIn(result: Single<AuthoredChallengesResponseModel>) {
+        given(service.getAuthoredChallenges(userName)).willReturn(result)
+    }
+
+    private fun whenAuthoredChallengesMapsCorrectly(networkModel: AuthoredChallengesResponseModel, authoredChallengesList: List<AuthoredChallenge>) {
+        given(challengesMapper.mapAuthoredChallenges(networkModel, userName)).willReturn(authoredChallengesList)
     }
 }

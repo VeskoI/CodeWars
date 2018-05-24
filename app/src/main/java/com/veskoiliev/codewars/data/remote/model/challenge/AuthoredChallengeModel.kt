@@ -1,7 +1,7 @@
 package com.veskoiliev.codewars.data.remote.model.challenge
 
-data class CompletedChallengeModel(
+data class AuthoredChallengeModel(
         val id: String,
         val name: String,
-        val completedAt: String
+        val description: String
 )

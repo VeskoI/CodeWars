@@ -1,6 +1,7 @@
 package com.veskoiliev.codewars.data.remote
 
 import com.veskoiliev.codewars.data.remote.model.UserModel
+import com.veskoiliev.codewars.data.remote.model.challenge.AuthoredChallengesResponseModel
 import com.veskoiliev.codewars.data.remote.model.challenge.CompletedChallengesResponseModel
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -12,6 +13,7 @@ private const val QUERY_PARAM_PAGE = "page"
 
 private const val PATH_GET_USER = "v1/users/{$PARAM_USERNAME}"
 private const val PATH_COMPLETED_CHALLENGES = "v1/users/{$PARAM_USERNAME}/code-challenges/completed"
+private const val PATH_AUTHORED_CHALLENGES = "v1/users/{$PARAM_USERNAME}/code-challenges/authored"
 
 interface CodeWarsApiService {
 
@@ -20,4 +22,7 @@ interface CodeWarsApiService {
 
     @GET(PATH_COMPLETED_CHALLENGES)
     fun getCompletedChallenges(@Path(PARAM_USERNAME) userName: String, @Query(QUERY_PARAM_PAGE) page: Int = 0): Single<CompletedChallengesResponseModel>
+
+    @GET(PATH_AUTHORED_CHALLENGES)
+    fun getAuthoredChallenges(@Path(PARAM_USERNAME) userName: String): Single<AuthoredChallengesResponseModel>
 }

@@ -1,6 +1,7 @@
 package com.veskoiliev.codewars.data.remote
 
 import com.veskoiliev.codewars.data.local.model.User
+import com.veskoiliev.codewars.data.local.model.challenge.AuthoredChallenge
 import com.veskoiliev.codewars.data.local.model.challenge.CompletedChallenge
 import com.veskoiliev.codewars.data.remote.mapper.ChallengesMapper
 import com.veskoiliev.codewars.data.remote.mapper.UserMapper
@@ -21,5 +22,10 @@ class CodeWarsRestApi @Inject constructor(private val service: CodeWarsApiServic
     fun getCompletedChallenges(userName: String, page: Int): Single<List<CompletedChallenge>> {
         return service.getCompletedChallenges(userName, page)
                 .map { challengesMapper.mapCompletedChallenges(it, page) }
+    }
+
+    fun getAuthoredChallenges(userName: String): Single<List<AuthoredChallenge>> {
+        return service.getAuthoredChallenges(userName)
+                .map { challengesMapper.mapAuthoredChallenges(it, userName) }
     }
 }
