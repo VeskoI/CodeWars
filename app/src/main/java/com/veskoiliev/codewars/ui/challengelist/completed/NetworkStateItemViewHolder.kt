@@ -1,4 +1,4 @@
-package com.veskoiliev.codewars.ui.challengelist
+package com.veskoiliev.codewars.ui.challengelist.completed
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

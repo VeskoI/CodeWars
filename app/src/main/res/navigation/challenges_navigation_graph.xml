@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/completedChallengesFragment"
-        android:name="com.veskoiliev.codewars.ui.challengelist.CompletedChallengesFragment"
+        android:name="com.veskoiliev.codewars.ui.challengelist.completed.CompletedChallengesFragment"
         android:label="CompletedChallengesFragment"
         tools:layout="@layout/fragment_completed_challenges" />
 

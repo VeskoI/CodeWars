@@ -1,4 +1,4 @@
-package com.veskoiliev.codewars.ui.challengelist
+package com.veskoiliev.codewars.ui.challengelist.completed
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

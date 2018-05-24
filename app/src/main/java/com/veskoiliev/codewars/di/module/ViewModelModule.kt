@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.veskoiliev.codewars.di.util.ViewModelFactory
 import com.veskoiliev.codewars.di.util.ViewModelKey
-import com.veskoiliev.codewars.ui.challengelist.CompletedChallengesViewModel
+import com.veskoiliev.codewars.ui.challengelist.completed.CompletedChallengesViewModel
 import com.veskoiliev.codewars.ui.search.SearchViewModel
 import dagger.Binds
 import dagger.Module
