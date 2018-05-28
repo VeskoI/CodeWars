@@ -15,7 +15,7 @@ class MockResponseBuilder private constructor() {
         return responseCode(404)
     }
 
-    private fun responseCode(responseCode: Int): MockResponseBuilder {
+    fun responseCode(responseCode: Int): MockResponseBuilder {
         mockResponse.setResponseCode(responseCode)
         return this
     }

@@ -1,10 +1,10 @@
 package com.veskoiliev.action
 
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.espresso.matcher.ViewMatchers.withText
+import android.support.test.espresso.matcher.ViewMatchers.*
 import com.veskoiliev.action.ViewActions.selectView
 import com.veskoiliev.action.ViewActions.typeText
 import com.veskoiliev.codewars.R
+import org.hamcrest.Matchers.allOf
 
 class SearchScreenActions {
 
@@ -25,5 +25,11 @@ class SearchScreenActions {
 
     private fun openSortMenu() {
         selectView(withId(R.id.menu_item_sort))
+    }
+
+    fun selectsUserFromHistory(name: String) {
+        selectView(allOf(isDescendantOfA(withId(R.id.search_history_list)),
+                withText(name)
+        ))
     }
 }
