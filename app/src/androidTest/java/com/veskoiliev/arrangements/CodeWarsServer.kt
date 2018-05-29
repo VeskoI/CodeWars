@@ -39,18 +39,25 @@ class CodeWarsServer(serverRule: MockWebServerRule) : ApiServerArrangements(serv
     }
 
     fun returnsCompletedChallengesSuccessfully() {
-        // First page is fetched successfully
-        respondOn(
-                allOf(onHttpMethod(HttpMethod.GET), pathContains(PATH_COMPLETED_CHALLENGES_PAGE_0)),
-                withResponse().body(Assets.COMPLETED_CHALLENGES_RESPONSE)
-        )
+        fun firstPageIsReturnedSuccessfully() {
+            respondOn(
+                    allOf(onHttpMethod(HttpMethod.GET), pathContains(PATH_COMPLETED_CHALLENGES_PAGE_0)),
+                    withResponse().body(Assets.COMPLETED_CHALLENGES_RESPONSE)
+            )
+        }
 
-        // Second page is empty (response has only 1 page)
-        respondOn(
-                allOf(onHttpMethod(HttpMethod.GET), pathContains(PATH_COMPLETED_CHALLENGES_PAGE_1)),
-                withResponse().body(Assets.EMPTY_COMPLETED_CHALLENGES_RESPONSE)
-        )
+        fun secondPageIsReturnedSuccessfully() {
+            respondOn(
+                    allOf(onHttpMethod(HttpMethod.GET), pathContains(PATH_COMPLETED_CHALLENGES_PAGE_1)),
+                    withResponse().body(Assets.EMPTY_COMPLETED_CHALLENGES_RESPONSE)
+            )
+        }
+
+        firstPageIsReturnedSuccessfully()
+
+        secondPageIsReturnedSuccessfully()
     }
+
 
     fun respondsWithErrorWhenFetchingAuthoredChallenges() {
         respondOn(
